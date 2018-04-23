@@ -35,10 +35,8 @@ def create_estimator_fn(model_fn, loss_model_fn, loss_fn, data_format="channels_
             target_style_features
             transferred_content_features
             transferred_style_features
-            transferred
             content_loss_weight
             style_loss_weight
-            tv_loss_weight
     :param data_format: Either 'channels_last' or 'channels_first'
     :return: EstimatorSpec
     """
@@ -79,10 +77,8 @@ def create_estimator_fn(model_fn, loss_model_fn, loss_fn, data_format="channels_
             target_style_features=target_style_features,
             transferred_content_features=transferred_content_features,
             transferred_style_features=transferred_style_features,
-            transferred=transferred,
             content_loss_weight=params.content_weight,
-            style_loss_weight=params.style_weight,
-            tv_loss_weight=1e-4)
+            style_loss_weight=params.style_weight)
 
         if data_format == "channels_first":
             styles = tf.transpose(styles, perm=[0, 2, 3, 1])

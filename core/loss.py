@@ -318,7 +318,7 @@ def gram_matrix(x, data_format="channels_last"):
 
 
 def create_loss_fn(data_format="channels_last"):
-    """Higher order function to create loss_fn
+    """Higher order function to create loss_fn (w/o total variation loss)
 
     :param data_format: Either 'channels_last' or 'channels_first'
     :return: loss_fn with signature as follows:

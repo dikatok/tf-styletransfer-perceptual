@@ -22,7 +22,7 @@ def parse_args():
         type=str,
         nargs='+')
     parser.add_argument('--model_dir', default='ckpts', help='Path to vgg weights.', type=str)
-    parser.add_argument('--vgg_path', default='vgg16_weights.npz', help='Path to vgg weights.', type=str)
+    parser.add_argument('--vgg_path', default='vgg_small.npz', help='Path to vgg weights.', type=str)
     parser.add_argument('--data_format', default='channels_last', help='Path to vgg weights.', type=str)
     parser.add_argument('--num_epochs', default=2, help='Number of iterations.', type=int)
     parser.add_argument('--batch_size', default=8, help='Learning rate.', type=int)
