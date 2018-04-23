@@ -34,7 +34,7 @@ This is Tensorflow implementation of [Perceptual Losses for Real-Time Style Tran
 - Download MS COCO 2014 training set from [here](http://cocodataset.org/#download)
 - Create training set tfrecord using `create_tfrecords.py` script
 #### 2. Test
-- Download pre-trained frozen model from [here](https://drive.google.com/open?id=1jNINZkrXwat4O-9V3fGhn5inO6Nh9Mno)
+- Download pre-trained frozen model from [here](https://drive.google.com/drive/folders/18VygoSUbtFwgJ0Ad-c95BaEE6L5h9hCq)
 
 ## Usage
 #### 1. Train
