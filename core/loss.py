@@ -1,5 +1,8 @@
+from io import BytesIO
+
 import numpy as np
 import tensorflow as tf
+from tensorflow.python.lib.io import file_io
 
 
 def create_loss_model_fn(weights_path, data_format="channels_last"):
@@ -10,7 +13,7 @@ def create_loss_model_fn(weights_path, data_format="channels_last"):
     :return: vgg16 function
     """
 
-    weights = np.load(weights_path)
+    weights = np.load(BytesIO(file_io.read_file_to_string(weights_path, binary_mode=True)))
     nn_data_format = "NHWC" if data_format == "channels_last" else "NCHW"
 
     def vgg16(inputs):
