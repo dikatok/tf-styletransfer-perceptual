@@ -34,7 +34,7 @@ This is Tensorflow implementation of [Perceptual Losses for Real-Time Style Tran
 - Download MS COCO 2014 training set from [here](http://cocodataset.org/#download)
 - Create training set tfrecord using `create_tfrecords.py` script
 #### 2. Test
-- Download pre-trained frozen model from [here](https://drive.google.com/open?id=1jNINZkrXwat4O-9V3fGhn5inO6Nh9Mno)
+- Download pre-trained frozen model from [here](https://drive.google.com/open?id=18VygoSUbtFwgJ0Ad-c95BaEE6L5h9hCq)
 
 ## Usage
 #### 1. Train
@@ -44,7 +44,7 @@ This is Tensorflow implementation of [Perceptual Losses for Real-Time Style Tran
     Options:
         --restart_training      Whether to restart the training and remove all checkpoints and summaries
         --train_files           List of tfrecord filenames
-        --model_dir             Directory to save checkpoints and summaries
+        --job-dir               Directory to save checkpoints and summaries
         --vgg_path              Path to vgg numpy weights
         --data_format           Either channels_last or channels_last
         --num_epochs            Number of training epochs
@@ -97,3 +97,9 @@ This is Tensorflow implementation of [Perceptual Losses for Real-Time Style Tran
     python test_video.py content.mp4 output.mp4
     
     python test_webcam.py
+    
+## Training using Google Cloud ML Engine
+#### 1. Install and configure [gcloud](https://cloud.google.com/sdk/gcloud/) and [gsutil](https://cloud.google.com/storage/docs/gsutil)
+#### 2. Specify master and workers in `config.yaml`
+#### 3. Specify configurations in `train_mlengine.sh`
+#### 4. Run `train_mlengine.sh`
