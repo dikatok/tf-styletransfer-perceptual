@@ -1,6 +1,15 @@
 import tensorflow as tf
 
 
+def instance_norm(x, name, epsilon=1e-5):
+    with tf.variable_scope(name):
+        gamma = tf.get_variable(shape=x.shape[-1], name="gamma")
+        beta = tf.get_variable(shape=x.shape[-1], name="beta")
+        mean, var = tf.nn.moments(x, axes=[1, 2], keep_dims=True)
+        x = tf.nn.batch_normalization(x, mean, var, beta, gamma, epsilon, name="norm")
+    return x
+
+
 def conv(inputs,
          name,
          filters,
@@ -40,10 +49,7 @@ def conv(inputs,
             name="conv",
             data_format=data_format)
         if with_bn:
-            nn_data_format = "NHWC" if data_format == "channels_last" else "NCHW"
-            outputs = tf.contrib.layers.instance_norm(
-                outputs,
-                data_format=nn_data_format)  # instance norm instead of batchnorm
+            outputs = instance_norm(outputs, name="inorm")
         if with_relu:
             outputs = tf.nn.relu(outputs, name="act")
     return outputs

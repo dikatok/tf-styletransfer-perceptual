@@ -1,4 +1,7 @@
+from io import BytesIO
+
 import tensorflow as tf
+from tensorflow.python.lib.io import file_io
 
 
 def _create_parse_record_fn(image_size: (int, int)):
@@ -79,8 +82,10 @@ def create_inputs_fn(content_tfrecords: [str],
     def inputs_fn():
 
         with tf.variable_scope(scope), tf.device("/cpu:0"):
-            styles = tf.convert_to_tensor(tf.keras.preprocessing.image.img_to_array(
-                tf.keras.preprocessing.image.load_img(style_img, target_size=style_size, interpolation="bilinear")))
+            styles = BytesIO(file_io.read_file_to_string(style_img, binary_mode=True))
+            styles = tf.keras.preprocessing.image.img_to_array(
+                tf.keras.preprocessing.image.load_img(styles, target_size=style_size, interpolation="bilinear"))
+            styles = tf.convert_to_tensor(styles)
             styles = tf.expand_dims(styles, axis=0)
 
             iterator = _create_one_shot_iterator(
