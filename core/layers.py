@@ -1,11 +1,13 @@
 import tensorflow as tf
 
 
-def instance_norm(x, name, epsilon=1e-5):
+def instance_norm(x, name, epsilon=1e-5, data_format="channels_last"):
+    gamma_beta_shape = [1, 1, x.shape[3]] if data_format == "channels_last" else [x.shape[1], 1, 1]
+    spatial_axes = [1, 2] if data_format == "channels_last" else [2, 3]
     with tf.variable_scope(name):
-        gamma = tf.get_variable(shape=x.shape[-1], name="gamma")
-        beta = tf.get_variable(shape=x.shape[-1], name="beta")
-        mean, var = tf.nn.moments(x, axes=[1, 2], keep_dims=True)
+        gamma = tf.get_variable(shape=gamma_beta_shape, name="gamma")
+        beta = tf.get_variable(shape=gamma_beta_shape, name="beta")
+        mean, var = tf.nn.moments(x, axes=spatial_axes, keep_dims=True)
         x = tf.nn.batch_normalization(x, mean, var, beta, gamma, epsilon, name="norm")
     return x
 
@@ -49,7 +51,7 @@ def conv(inputs,
             name="conv",
             data_format=data_format)
         if with_bn:
-            outputs = instance_norm(outputs, name="inorm")
+            outputs = instance_norm(outputs, name="inorm", data_format=data_format)
         if with_relu:
             outputs = tf.nn.relu(outputs, name="act")
     return outputs
