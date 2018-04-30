@@ -18,6 +18,9 @@ JOB_NAME="train_${MODEL_NAME}_${TIER}_${CURRENT_DATE}"
 STYLE_IMG="gs://${BUCKET}/path/to/style_image"
 VGG_PATH="gs://${BUCKET}/path/to/vgg_weights"
 
+#uncomment line below to restart the training
+#gsutil -m rm -r ${MODEL_DIR}
+
 gcloud ml-engine jobs submit training ${JOB_NAME} \
         --runtime-version=1.7 \
         --job-dir=${MODEL_DIR}\
